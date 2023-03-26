@@ -49,7 +49,7 @@ def getReviewText(soup):
     return text.strip()
 
 if __name__  == "__main__":
-    url = "https://www.amazon.in/Campus-OXYFIT-Walking-Shoes-India/dp/B09RPVZK5S/ref=sr_1_1?keywords=shoes%2Bfor%2Bmen&qid=1679773036&sprefix=shoes%2Cspecialty-aps%2C229&sr=8-1&th=1&psc=1"
+    url = "https://www.amazon.in/OPPO-Fantastic-Purple-128GB-Storage/dp/B08VB34KJ1/ref=sr_1_3?keywords=mobile&sr=8-3&th=1"
     
     soup = getSoup(url)
 
