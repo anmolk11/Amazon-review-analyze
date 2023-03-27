@@ -55,7 +55,7 @@ if __name__  == "__main__":
 
     link = soup.find_all("div",attrs={
         "class" : "a-row a-spacing-medium"
-    })[1].find("a")
+    })[-1].find("a")
 
     review_link = link.get("href")
 
