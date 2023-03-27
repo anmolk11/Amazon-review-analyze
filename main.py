@@ -49,13 +49,14 @@ def getReviewText(soup):
     return text.strip()
 
 if __name__  == "__main__":
+    start_time = time.time()
     url = "https://www.amazon.in/OPPO-Fantastic-Purple-128GB-Storage/dp/B08VB34KJ1/ref=sr_1_3?keywords=mobile&sr=8-3&th=1"
     
     soup = getSoup(url)
 
     link = soup.find_all("div",attrs={
         "class" : "a-row a-spacing-medium"
-    })[1].find("a")
+    })[-1].find("a")
 
     review_link = link.get("href")
 
@@ -69,3 +70,6 @@ if __name__  == "__main__":
         with open(file_name,"w",encoding="utf-8") as F:
             F.write(text)
     
+    print("\n---------------------------------------------------\n")
+    print(f"Execution time : {time.time() - start_time}")
+    print("\n---------------------------------------------------\n")
