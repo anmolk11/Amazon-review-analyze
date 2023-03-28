@@ -1,1 +1,4 @@
-need to find a generalized way to access "all review link"
+[done] need to find a generalized way to access "all review link".
+
+need to clean the data, i.e. to remove all the extra things(emojis, random symbols)
+need to apply try except at risky places
