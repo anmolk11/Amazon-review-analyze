@@ -7,6 +7,34 @@ def getScore(text):
     subjectivity = blob.sentiment.subjectivity
     return polarity,subjectivity
 
+def classify_text(text):
+    """
+    Classifies the given text into one of five categories based on its
+    polarity and subjectivity scores.
+
+    Returns a string indicating the category.
+    """
+    blob = TextBlob(text)
+    polarity = blob.sentiment.polarity
+    subjectivity = blob.sentiment.subjectivity
+
+    # Define the ranges for each category
+    categories = {
+        "Bad": (-1.0, -0.6, 0.0, 0.2),
+        "Poor": (-0.6, -0.2, 0.2, 0.4),
+        "Fair": (-0.2, 0.2, 0.4, 0.6),
+        "Good": (0.2, 0.6, 0.6, 0.8),
+        "Great": (0.6, 1.0, 0.8, 1.0)
+    }
+
+    # Map the polarity and subjectivity scores to a category
+    for category, ranges in categories.items():
+        if ranges[0] <= polarity < ranges[1] and ranges[2] <= subjectivity < ranges[3]:
+            return category
+
+    # If no category is matched, return None
+    return None
+
 def remove_emojis(text):
     # regular expression pattern to match emojis
     emoji_pattern = re.compile("["
@@ -27,7 +55,13 @@ if __name__ == "__main__":
     for i in range(limit):
         file_name = f"Reviews/review_{i}.txt"
         with open(file_name,"r",encoding = "utf-8") as F:
-            # pol,sub = getScore(F.read())
             text = F.read()
             text = remove_emojis(text)
-            print(i,text,end="\n---------------------\n")
+            pol,sub = getScore(text)
+            category = classify_text(text)
+            print(i,text)
+            print(f"\nReview is {category}")
+            print(f"Polarity : {pol}")
+            print(f"Subjectivity : {sub}")
+            print("\n---------------------------------\n")
+            
