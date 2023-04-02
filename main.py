@@ -10,6 +10,11 @@ options.headless = True
 driver = Chrome(executable_path='chromedriver.exe', options=options)
 
 
+data = {
+    "review" : [],
+    "stars" : []
+}
+
 def getSoup(url):
     driver.get(url)
     html = driver.execute_script("return document.documentElement.outerHTML")
@@ -19,7 +24,7 @@ def getSoup(url):
 def getAllReviews(url):
     reviews_list = []
     count = 0
-    limit = 15
+    limit = 50
     while count < limit:
         count += 1
         soup = getSoup(url)
@@ -48,6 +53,15 @@ def getReviewText(soup):
 
     return text.strip()
 
+def getStars(soup):
+    stars = soup.find("a",attrs={
+        "class"  : "a-link-normal"
+    }).find("span",attrs={
+        "class" : "a-icon-alt"
+    }).text    
+    stars = float(stars.split()[0])
+    return stars
+
 if __name__  == "__main__":
     url = "https://www.amazon.in/Campus-OXYFIT-Walking-Shoes-India/dp/B09RPVZK5S/ref=sr_1_1?keywords=shoes%2Bfor%2Bmen&qid=1679773036&sprefix=shoes%2Cspecialty-aps%2C229&sr=8-1&th=1&psc=1"
     
@@ -64,8 +78,12 @@ if __name__  == "__main__":
     all_reviews = getAllReviews(review_link)
 
     for count,review in enumerate(all_reviews):
+        stars = getStars(review)
         text = getReviewText(review)
-        file_name = f"Reviews/review_{count}.txt"
-        with open(file_name,"w",encoding="utf-8") as F:
-            F.write(text)
+        data["review"].append(text)
+        data["stars"].append(stars)
     
+    
+    df = pd.DataFrame(data)
+    df.to_csv("reviews.csv")
+    df.to_csv("reviews.csv")
