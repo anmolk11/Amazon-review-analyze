@@ -7,5 +7,4 @@ def analyze(text):
     return scores
 
 if __name__ == "__main__":
-    
-    
+    pass
