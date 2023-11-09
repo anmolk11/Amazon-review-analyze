@@ -1,0 +1,3 @@
+Adding pagination.
+Giving the option to choose the number of reviews want to see.
+Working on sentiment anaylis part.
