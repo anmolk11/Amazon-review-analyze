@@ -1,19 +1,30 @@
-import pandas as pd
 from bs4 import BeautifulSoup
 from selenium.webdriver import Chrome 
 from selenium.webdriver import ChromeOptions
-import time
 from urllib.parse import urljoin
 
 options = ChromeOptions()
-options.headless = True
-driver = Chrome(executable_path='chromedriver.exe', options=options)
+options.add_argument("--headless=new")
+driver = Chrome(options=options)
+
+def start_app(F):
+    def wraper(self):
+        global driver
+        options = ChromeOptions()
+        options.add_argument("--headless=new")
+        driver = Chrome(options=options)    
+        # print('before')
+        F(self)
+        driver.quit()
+        # print('after')
+    return wraper
 
 
-data = {
-    "review" : [],
-    "stars" : []
-}
+
+def writeHTML(html,file_name = 'sample.html'):
+    with open(file_name,'w',encoding = 'utf-8') as F:
+        F.write(html.prettify())
+    print(f'HTML written in {file_name}')
 
 def getSoup(url):
     driver.get(url)
@@ -24,7 +35,7 @@ def getSoup(url):
 def getAllReviews(url):
     reviews_list = []
     count = 0
-    limit = 50
+    limit = 1
     while count < limit:
         count += 1
         soup = getSoup(url)
@@ -62,28 +73,38 @@ def getStars(soup):
     stars = float(stars.split()[0])
     return stars
 
-if __name__  == "__main__":
-    url = "https://www.amazon.in/Campus-OXYFIT-Walking-Shoes-India/dp/B09RPVZK5S/ref=sr_1_1?keywords=shoes%2Bfor%2Bmen&qid=1679773036&sprefix=shoes%2Cspecialty-aps%2C229&sr=8-1&th=1&psc=1"
+
+class Reviews():
+    def __init__(self,url) -> None:
+        # print(" ******** \n\n I am called \n\n ********")
+        self.url = url
     
-    soup = getSoup(url)
+    # @start_app    {this decorator is NOT working !!}
+    def getReviews(self):
+        review_list = []
+        stars_list = []
+        soup = getSoup(self.url)
+        link = soup.find_all("div",attrs={
+            "class" : "a-row a-spacing-medium"
+        })[-1].find("a")
 
-    link = soup.find_all("div",attrs={
-        "class" : "a-row a-spacing-medium"
-    })[-1].find("a")
+        review_link = link.get("href")
 
-    review_link = link.get("href")
+        review_link = urljoin(self.url,review_link)
 
-    review_link = urljoin(url,review_link)
+        all_reviews = getAllReviews(review_link)
 
-    all_reviews = getAllReviews(review_link)
+        for review in all_reviews:
+            stars = getStars(review)
+            text = getReviewText(review)
+            review_list.append(text)
+            stars_list.append(stars)
 
-    for count,review in enumerate(all_reviews):
-        stars = getStars(review)
-        text = getReviewText(review)
-        data["review"].append(text)
-        data["stars"].append(stars)
-    
-    
-    df = pd.DataFrame(data)
-    df.to_csv("reviews.csv")
-    df.to_csv("reviews.csv")
+        driver.quit()
+        print('\n\ndone\n\n')
+        return review_list,stars_list
+
+if __name__  == "__main__": 
+    rvs = Reviews('https://www.amazon.in/dp/B071CP6HQH/ref=s9_acsd_al_bw_c2_x_0_i?th=1')
+    print(rvs.getReviews())
+

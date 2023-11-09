@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Web Page</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        section {
+            margin: 20px;
+            text-align: center;
+        }
+
+        input {
+            padding: 10px;
+            width: 70%;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cool Web Page</h1>
+    </header>
+
+    <section>
+        <form action="/reviews" method="post">
+            <label for="websiteUrl">Enter Website URL:</label>
+            <input type="text" name="websiteUrl" id="websiteUrl" placeholder="https://example.com" required>
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+</body>
+</html>
