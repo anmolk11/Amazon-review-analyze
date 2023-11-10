@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style type="text/css">
-        body {
-            display: flex;
-            justify-content: center;
-            margin: 0;
-        }
-
-        table.tg {
-            margin-top: 20px; /* Add some margin if needed */
+        .tg {
+            border-collapse: collapse;
+            border-spacing: 0;
         }
 
         .tg td {
@@ -38,48 +34,67 @@
             word-break: normal;
         }
 
-        .tg .tg-b9sk {
-            background-color: #036400;
+        .tg .tg-sa8i {
+            background-color: #fd6864;
+            border-color: inherit;
             font-weight: bold;
             text-align: center;
             vertical-align: top
         }
 
-        .tg .tg-pdro {
-            background-color: #009901;
+        .tg .tg-c3ow {
+            border-color: inherit;
+            text-align: center;
+            vertical-align: top
+        }
+
+        .tg .tg-90e1 {
+            background-color: #ffccc9;
+            border-color: inherit;
+            text-align: left;
+            vertical-align: top
+        }
+
+        .tg .tg-ycyt {
+            background-color: #67fd9a;
+            border-color: inherit;
             font-weight: bold;
             text-align: center;
             vertical-align: top
         }
 
-        .tg .tg-0lax {
+        .tg .tg-0pky {
+            border-color: inherit;
             text-align: left;
             vertical-align: top
         }
     </style>
 </head>
+
 <body>
-    <table class="tg" style="undefined;table-layout: fixed; width: 1065px">
+    <table class="tg" style="undefined;table-layout: fixed; width: 1128px">
         <colgroup>
-            <col style="width: 985px">
+            <col style="width: 40px">
+            <col style="width: 1008px">
             <col style="width: 80px">
         </colgroup>
         <thead>
             <tr>
-                <th class="tg-b9sk"></th>
-                <th class="tg-pdro">Review</th>
-                <th class="tg-b9sk">Stars</th>
+                <th class="tg-90e1">S.no</th>
+                <th class="tg-sa8i">Review</th>
+                <th class="tg-ycyt">Stars</th>
             </tr>
         </thead>
         <tbody>
             {% for i in range(review|length) %}
             <tr>
-                <td class="tg-0lax"> {{i + 1}} </td>
-                <td class="tg-0lax"> {{review[i]}} </td>
-                <td class="tg-0lax"> {{stars[i]}} </td>
+                <td class="tg-c3ow">{{i + 1}}</td>
+                <td class="tg-0pky">{{review[i]}}</td>
+                <td class="tg-c3ow">{{stars[i]}}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </body>
+
 </html>

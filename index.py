@@ -1,5 +1,6 @@
 from flask import Flask,render_template,redirect,request
 from main import Reviews
+import time
 
 app = Flask(__name__)
 app.config['STATIC_URL_PATH'] = '/static'

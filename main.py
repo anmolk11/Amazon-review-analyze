@@ -107,6 +107,6 @@ class Reviews():
 
 
 if __name__  == "__main__": 
-    rvs = Reviews('https://www.amazon.in/dp/B071CP6HQH/ref=s9_acsd_al_bw_c2_x_0_i?th=1')
+    rvs = Reviews(input('url : '))
     print(rvs.getReviews())
 
