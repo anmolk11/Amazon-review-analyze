@@ -66,6 +66,7 @@
         </colgroup>
         <thead>
             <tr>
+                <th class="tg-b9sk"></th>
                 <th class="tg-pdro">Review</th>
                 <th class="tg-b9sk">Stars</th>
             </tr>
@@ -73,6 +74,7 @@
         <tbody>
             {% for i in range(review|length) %}
             <tr>
+                <td class="tg-0lax"> {{i + 1}} </td>
                 <td class="tg-0lax"> {{review[i]}} </td>
                 <td class="tg-0lax"> {{stars[i]}} </td>
             </tr>

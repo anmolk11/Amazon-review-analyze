@@ -1,3 +1,5 @@
 Adding pagination.
 Giving the option to choose the number of reviews want to see.
 Working on sentiment anaylis part.
+Add the loading bar in the index page.
+Add exception handling and the error page.

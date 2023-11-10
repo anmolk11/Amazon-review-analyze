@@ -32,10 +32,10 @@ def getSoup(url):
     soup = BeautifulSoup(html,'lxml')
     return soup
 
-def getAllReviews(url):
+def getAllReviews(url,_limit):
     reviews_list = []
     count = 0
-    limit = 1
+    limit = _limit
     while count < limit:
         count += 1
         soup = getSoup(url)
@@ -75,9 +75,10 @@ def getStars(soup):
 
 
 class Reviews():
-    def __init__(self,url) -> None:
+    def __init__(self,url,limit =  1) -> None:
         # print(" ******** \n\n I am called \n\n ********")
         self.url = url
+        self.limit = limit
     
     # @start_app    {this decorator is NOT working !!}
     def getReviews(self):
@@ -92,7 +93,7 @@ class Reviews():
 
         review_link = urljoin(self.url,review_link)
 
-        all_reviews = getAllReviews(review_link)
+        all_reviews = getAllReviews(review_link,self.limit)
 
         for review in all_reviews:
             stars = getStars(review)
@@ -101,8 +102,9 @@ class Reviews():
             stars_list.append(stars)
 
         driver.quit()
-        print('\n\ndone\n\n')
+        # print('\n\ndone\n\n')
         return review_list,stars_list
+
 
 if __name__  == "__main__": 
     rvs = Reviews('https://www.amazon.in/dp/B071CP6HQH/ref=s9_acsd_al_bw_c2_x_0_i?th=1')

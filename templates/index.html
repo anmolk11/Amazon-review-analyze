@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,53 +8,85 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-image: url("{{ url_for('static', filename='images/main_back.png') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
         header {
-            background-color: #333;
+            background-color: #772121;
             color: #fff;
             text-align: center;
-            padding: 1em;
+            padding: 0.25em;
+            font-size: 2em;
+            text-transform: uppercase;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         section {
-            margin: 20px;
+            margin: 20px auto;
+            max-width: 400px;
+            padding: 100px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
             text-align: center;
         }
 
         input {
             padding: 10px;
-            width: 70%;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
 
         button {
-            padding: 10px;
+            padding: 10px 20px;
             cursor: pointer;
             background-color: #4CAF50;
             color: #fff;
             border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
 
         button:hover {
             background-color: #45a049;
         }
+
+        h1 {
+            text-transform: none;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            vertical-align: middle;
+            float: left;
+            margin-right: 10px;
+        }
     </style>
 </head>
+
 <body>
     <header>
-        <h1>Cool Web Page</h1>
+        <!-- <img class="icon" src="{{ url_for('static', filename='images/main_icon.png') }}" alt="Main Icon"> -->
+        <h1>ProductVibe</h1>
     </header>
+
+
 
     <section>
         <form action="/reviews" method="post">
-            <label for="websiteUrl">Enter Website URL:</label>
             <input type="text" name="websiteUrl" id="websiteUrl" placeholder="https://example.com" required>
+            <input type="number" name="limit" id="limit" placeholder="Number of pages e.g. 1" required>
             <button type="submit">Submit</button>
         </form>
     </section>
 </body>
+
 </html>
